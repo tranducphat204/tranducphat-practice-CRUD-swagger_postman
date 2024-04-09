@@ -58,14 +58,15 @@ use Illuminate\Support\Facades\DB;
  *     security={{"bearerAuth": {}}}
  * )
  *
- * @OA\user(
+ * @OA\Post(
  *     path="/api/users",
  *     summary="Create a new user",
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="title", type="string"),
- *             @OA\Property(property="description", type="string")
+ *             @OA\Property(property="name", type="string"),
+ *             @OA\Property(property="email", type="string"),
+ *             @OA\Property(property="password", type="string")
  *         )
  *     ),
  *     @OA\Response(response="201", description="user created"),
@@ -129,13 +130,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-
+        $validatedData = $request->validate([
+            'name' => 'required|string|min:3|max:15',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|confirmed',
         ]);
 
+        $user = new user($validatedData);
+        $user->save();
         return response()->json($user, 201);
     }
 

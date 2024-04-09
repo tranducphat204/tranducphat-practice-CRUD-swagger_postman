@@ -175,6 +175,41 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "summary": "Create a new user",
+                "operationId": "5b6e72f178a035f354aff3d8b9eeb221",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "user created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/users/{id}": {
@@ -282,33 +317,6 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        }
-    },
-    "components": {
-        "responses": {
-            "201": {
-                "description": "user created"
-            }
-        },
-        "requestBodies": {
-            "UserController": {
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "title": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
             }
         }
     }
